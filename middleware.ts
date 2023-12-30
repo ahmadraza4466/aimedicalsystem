@@ -6,9 +6,11 @@ export default async function middleware(req: NextRequest) {
   const url = req.url;
 
   if (url.includes("/auth") && isAuthenticated) {
-    return NextResponse.redirect("http://localhost:3000/chats");
+    return NextResponse.redirect(new URL("/chats", req.url));
+    // return NextResponse.redirect("http://localhost:3000/chats");
   } else if (!url.includes("/auth") && !isAuthenticated) {
-    return NextResponse.redirect("http://localhost:3000/auth/login");
+    return NextResponse.redirect(new URL("/auth/login", req.url));
+    // return NextResponse.redirect("http://localhost:3000/auth/login");
   }
 }
 
