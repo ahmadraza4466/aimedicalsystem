@@ -5,7 +5,6 @@ import Error from "@/components/ui/error";
 import Input from "@/components/ui/input";
 import Logo from "@/components/ui/logo";
 import SubmitButton from "@/components/ui/submit-button";
-import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -13,7 +12,6 @@ import { FaGoogle, FaFacebookF } from "react-icons/fa6";
 import { MdPerson, MdMail, MdPassword } from "react-icons/md";
 
 export default function SignUp() {
-  useTheme().setTheme("dark");
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -41,7 +39,7 @@ export default function SignUp() {
   };
 
   return (
-    <div className="px-7 md:px-0 md:h-screen flex flex-col md:flex-row md:justify-normal md:py-0 bg-gradient-to-br from-[#15222E] md:from-[#191919] via-[#191919] to-[#191919] md:bg-[#191919]">
+    <div className="px-7 md:px-0 h-screen flex flex-col md:flex-row md:justify-normal md:py-0 bg-gradient-to-br from-[#15222E] md:from-[#191919] via-[#191919] to-[#191919] md:bg-[#191919] text-white">
       <div className="md:pl-16 md:h-full mt-5 md:mt-0 md:w-[45%] mb-20 md:flex md:flex-col justify-center md:bg-gradient-to-r from-[#15222E] to-[#0a0a0a]">
         <Logo />
         <h1 className="text-3xl font-bold">Get your answers in seconds.</h1>
