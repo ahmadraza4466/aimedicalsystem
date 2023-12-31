@@ -5,6 +5,7 @@ import Error from "@/components/ui/error";
 import Input from "@/components/ui/input";
 import Logo from "@/components/ui/logo";
 import SubmitButton from "@/components/ui/submit-button";
+import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -12,6 +13,7 @@ import { FaGoogle, FaFacebookF } from "react-icons/fa6";
 import { MdPerson, MdMail, MdPassword } from "react-icons/md";
 
 export default function SignUp() {
+  useTheme().setTheme("dark");
   const [formData, setFormData] = useState({
     username: "",
     email: "",

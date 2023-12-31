@@ -42,13 +42,19 @@ export const newAccessToken = ({
   email,
   avatarUrl,
 }: NewAccessTokenProps) => {
-  return jwt.sign({ id, email, avatarUrl }, process.env.REFRESH_TOKEN!);
+  return jwt.sign(
+    { id, email, avatarUrl, exp: Math.floor(Date.now() / 1000) + 600 },
+    process.env.REFRESH_TOKEN!
+  );
 };
 
 export const refreshAccessToken = async (): Promise<string> => {
   const prevAccessToken = cookies().get("accessToken")?.value;
   const userDetails = jwt.decode(prevAccessToken!) as UserDetailsProps;
-  const newAccessToken = jwt.sign(userDetails, process.env.REFRESH_TOKEN!);
+  const newAccessToken = jwt.sign(
+    { ...userDetails, exp: Math.floor(Date.now() / 1000) + 600 },
+    process.env.REFRESH_TOKEN!
+  );
   updateCookies("accessToken", newAccessToken);
   return newAccessToken;
 };

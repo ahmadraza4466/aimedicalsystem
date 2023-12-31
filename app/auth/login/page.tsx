@@ -10,8 +10,10 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaGoogle, FaFacebookF } from "react-icons/fa6";
 import { MdMail, MdPassword } from "react-icons/md";
+import { useTheme } from "next-themes";
 
 export default function LogIn() {
+  useTheme().setTheme("dark");
   const [formData, setFormData] = useState({
     email: "",
     password: "",

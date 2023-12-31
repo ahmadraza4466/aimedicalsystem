@@ -44,7 +44,7 @@ export default function Sidebar({ className }: { className?: string }) {
             </span>
             <FaRegEdit />
           </button>
-          <ul className="h-[55vh] md:h-[60vh] overflow-y-scroll scrollbar-thin scrollbar-thumb-primary">
+          <ul className="h-[55vh] md:h-[60vh] overflow-y-scroll scrollbar-thin dark:scrollbar-thumb-primary scrollbar-thumb-[#2D374C]">
             {loading ? (
               <Spinner />
             ) : prevChats?.length === 0 ? (
