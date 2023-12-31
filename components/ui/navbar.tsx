@@ -16,7 +16,7 @@ const righteous = Righteous({ subsets: ["latin"], weight: ["400"] });
 export default function Navbar() {
   const { sidebar, setSidebar } = useContext(SidebarContext)!;
   const path = usePathname();
-  if (path.includes("/auth") || path === "/") {
+  if (path.includes("/auth") || path !== "/chats") {
     return null;
   }
   return (
