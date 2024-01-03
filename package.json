@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^8.3.1",
+    "@hotjar/browser": "^1.0.9",
     "@nextui-org/avatar": "^2.0.24",
     "@nextui-org/button": "^2.0.26",
     "@nextui-org/divider": "^2.0.25",
