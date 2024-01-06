@@ -1,6 +1,6 @@
 "use client";
 
-import { refreshAccessToken } from "@/actions/auth";
+import { verifyEmail } from "@/actions/auth";
 import DownloadButton from "@/components/ui/download-btn";
 import Logo from "@/components/ui/logo";
 import Sidebar from "@/components/ui/sidebar";
@@ -19,7 +19,7 @@ export default function Chats() {
   return (
     <AccessTokenContextProvider>
       <main className="md:flex md:items-center">
-        <DownloadButton />
+        <DownloadButton onClick={() => verifyEmail("msharyar45@gmail.com")} />
 
         <div>
           <Sidebar

@@ -6,8 +6,8 @@ import { Spinner } from "@nextui-org/spinner";
 type SubmitButtonProps = {
   text: string;
   loading: boolean;
-  requestSuccessful: boolean;
-  successMessage: string;
+  requestSuccessful?: boolean;
+  successMessage?: string;
 };
 
 export default function SubmitButton({

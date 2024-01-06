@@ -1,4 +1,10 @@
-import { mysqlTable, varchar, text, timestamp } from "drizzle-orm/mysql-core";
+import {
+  mysqlTable,
+  varchar,
+  text,
+  timestamp,
+  boolean,
+} from "drizzle-orm/mysql-core";
 import { v4 as uuidv4 } from "uuid";
 
 export const users = mysqlTable("users", {
@@ -9,6 +15,7 @@ export const users = mysqlTable("users", {
   avatarUrl: text("avatar_url").notNull(),
   createdAt: timestamp("created_at", { mode: "date" }).defaultNow(),
   updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow(),
+  emailVerified: boolean("email_verified").default(false),
 });
 
 export const chats = mysqlTable("chats", {

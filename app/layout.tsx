@@ -5,12 +5,6 @@ import NextUiProvider from "../components/next-ui-provider";
 import Navbar from "../components/ui/navbar";
 import { ThemeProvider } from "../components/theme-provider";
 import SidebarContextProvider from "@/contexts/sidebar-context";
-import Hotjar from "@hotjar/browser";
-
-const siteId = 3811967;
-const hotjarVersion = 6;
-
-Hotjar.init(siteId, hotjarVersion);
 
 const inter = Inter({ subsets: ["latin"] });
 

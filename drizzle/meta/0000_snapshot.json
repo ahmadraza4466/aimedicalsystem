@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "2bd1b3b2-6707-4e23-a180-c89c53503c59",
+  "id": "5de2a3cf-22c5-438c-8d0f-11016d039077",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "chat_messages": {
@@ -27,6 +27,22 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "create_at": {
+          "name": "create_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(now())"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(now())"
         }
       },
       "indexes": {},
@@ -78,6 +94,22 @@
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
+        },
+        "create_at": {
+          "name": "create_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(now())"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(now())"
         }
       },
       "indexes": {},
@@ -159,6 +191,14 @@
           "notNull": false,
           "autoincrement": false,
           "default": "(now())"
+        },
+        "email_verified": {
+          "name": "email_verified",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": false
         }
       },
       "indexes": {},

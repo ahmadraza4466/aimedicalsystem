@@ -1,6 +1,6 @@
 "use client";
 
-import { refreshAccessToken } from "@/actions/auth";
+import { refreshAccessToken } from "@/actions/jwt";
 import { ReactNode, createContext, useEffect, useState } from "react";
 
 interface AccessTokenContextProps {

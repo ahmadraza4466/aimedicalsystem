@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1703938511962,
-      "tag": "0000_curved_baron_zemo",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1703965205975,
-      "tag": "0001_oval_christian_walker",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1703965243255,
-      "tag": "0002_familiar_revanche",
+      "when": 1704451503982,
+      "tag": "0000_calm_vertigo",
       "breakpoints": true
     }
   ]

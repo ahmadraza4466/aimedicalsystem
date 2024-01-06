@@ -2,6 +2,8 @@ CREATE TABLE `chat_messages` (
 	`id` varchar(36) NOT NULL,
 	`chat_id` varchar(36) NOT NULL,
 	`content` text NOT NULL,
+	`create_at` timestamp DEFAULT (now()),
+	`updated_at` timestamp DEFAULT (now()),
 	CONSTRAINT `chat_messages_id` PRIMARY KEY(`id`)
 );
 --> statement-breakpoint
@@ -9,6 +11,8 @@ CREATE TABLE `chats` (
 	`id` varchar(36) NOT NULL,
 	`user_id` varchar(36) NOT NULL,
 	`name` varchar(50),
+	`create_at` timestamp DEFAULT (now()),
+	`updated_at` timestamp DEFAULT (now()),
 	CONSTRAINT `chats_id` PRIMARY KEY(`id`)
 );
 --> statement-breakpoint
@@ -20,6 +24,7 @@ CREATE TABLE `users` (
 	`avatar_url` text NOT NULL,
 	`created_at` timestamp DEFAULT (now()),
 	`updated_at` timestamp DEFAULT (now()),
+	`email_verified` boolean DEFAULT false,
 	CONSTRAINT `users_id` PRIMARY KEY(`id`)
 );
 --> statement-breakpoint

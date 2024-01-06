@@ -1,9 +1,10 @@
 "use client";
 
-import { signup } from "@/actions/auth";
+import { signup, verifyEmail } from "@/actions/auth";
 import Error from "@/components/ui/error";
 import Input from "@/components/ui/input";
 import Logo from "@/components/ui/logo";
+import Popup from "@/components/ui/popup";
 import SubmitButton from "@/components/ui/submit-button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -20,7 +21,7 @@ export default function SignUp() {
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [signupSuccess, setSignupSuccess] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
   const router = useRouter();
 
   const submitForm = async (e: any) => {
@@ -28,10 +29,10 @@ export default function SignUp() {
     setLoading(true);
     setError("");
     const res = await signup(formData);
-    if (res === "Signup successful") {
+    if (res === "Verification email sent") {
+      setError("");
+      setEmailSent(true);
       setLoading(false);
-      setSignupSuccess(true);
-      router.replace("/chats");
     } else {
       setLoading(false);
       setError(res);
@@ -90,13 +91,13 @@ export default function SignUp() {
             endContent={true}
           />
           <Error message={error} />
-          <SubmitButton
-            text="Sign Up"
-            loading={loading}
-            requestSuccessful={signupSuccess}
-            successMessage="Welcome to the club 😇"
-          />
+          <SubmitButton text="Sign Up" loading={loading} />
         </form>
+        {emailSent ? (
+          <Popup
+            text={`A verification link has been sent to ${formData.email}, kindly verify your email`}
+          />
+        ) : null}
         <h3 className="text-center py-2 md:w-[50%]">or</h3>
         <div className="grid grid-cols-2 gap-2 md:w-[50%]">
           <button className="bg-[#121212] border border-[#2A2929] rounded-lg h-14 flex justify-center items-center active:scale-95 duration-100">

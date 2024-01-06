@@ -4,6 +4,7 @@ import { login } from "@/actions/auth";
 import Error from "@/components/ui/error";
 import Input from "@/components/ui/input";
 import Logo from "@/components/ui/logo";
+import Popup from "@/components/ui/popup";
 import SubmitButton from "@/components/ui/submit-button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -19,6 +20,7 @@ export default function LogIn() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
+  const [emailVerified, setEmailVerified] = useState(true);
   const router = useRouter();
 
   const submitForm = async (e: any) => {
@@ -26,7 +28,10 @@ export default function LogIn() {
     setLoading(true);
     setError("");
     const res = await login(formData);
-    if (res === "Login successful") {
+    if (res === "Email not verified") {
+      setEmailVerified(false);
+      setLoading(false);
+    } else if (res === "Login successful") {
       setLoading(false);
       setLoginSuccess(true);
       router.replace("/chats");
@@ -44,6 +49,12 @@ export default function LogIn() {
           Welcome to AiBot, You are just one step away.
         </h1>
       </div>
+      {!emailVerified ? (
+        <Popup
+          title="Please verify your email"
+          text={`It seems like your email is not verified 🤔. A verification link is sent to ${formData.email}, Kindly verify your email`}
+        />
+      ) : null}
       <div className="md:w-[55%] md:flex md:flex-col md:justify-center md:items-center">
         <form className="md:w-[50%]" onSubmit={submitForm}>
           <p className="pb-2">Continue with</p>
