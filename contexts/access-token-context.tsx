@@ -3,9 +3,7 @@
 import { refreshAccessToken } from "@/actions/jwt";
 import { ReactNode, createContext, useEffect, useState } from "react";
 
-interface AccessTokenContextProps {
-  //   accessToken: string;
-}
+interface AccessTokenContextProps {}
 
 export const AccessTokenContext = createContext<
   AccessTokenContextProps | undefined
