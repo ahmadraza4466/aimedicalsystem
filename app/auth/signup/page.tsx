@@ -22,7 +22,6 @@ export default function SignUp() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
-  const router = useRouter();
 
   const submitForm = async (e: any) => {
     e.preventDefault();
