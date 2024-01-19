@@ -121,7 +121,6 @@ export const getUserDetails = async (): Promise<UserDetailsProps> => {
 
 export const verifyEmail = async (email: string) => {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
-  sgMail.setSubstitutionWrappers("{{", "}}", { port: 465 });
   const currentYear = new Date().getFullYear();
   const accessToken = cookies().get("accessToken")?.value;
   cookies().delete("accessToken");
