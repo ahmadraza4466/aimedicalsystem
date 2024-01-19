@@ -130,6 +130,7 @@ export const verifyEmail = async (email: string) => {
     to: email,
     from: "sheryar@infotechies.com",
     subject: "Verify your AiBot email address",
+    port: 465,
     html: `
       <head>
         <title>Verify your AiBot email address</title>
