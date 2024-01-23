@@ -130,7 +130,6 @@ export default function Chats() {
 
                     setChats(await getChats());
                     console.log(chats);
-                    new Promise((res) => setTimeout(res, 2000));
                     setLoading({ rowLoading: false, completeLoading: false });
                     setSelectedChat(chats![0]);
                     console.log(selectedChat);
