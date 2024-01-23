@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^8.3.1",
+    "@langchain/openai": "^0.0.12",
     "@nextui-org/avatar": "^2.0.24",
     "@nextui-org/button": "^2.0.26",
     "@nextui-org/divider": "^2.0.25",
@@ -25,6 +26,7 @@
     "drizzle-orm": "^0.29.2",
     "framer-motion": "^10.16.16",
     "jsonwebtoken": "^9.0.2",
+    "langchain": "^0.1.4",
     "mysql2": "^3.6.5",
     "next": "14.0.4",
     "next-themes": "^0.2.1",

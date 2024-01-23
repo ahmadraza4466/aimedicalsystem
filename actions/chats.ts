@@ -11,7 +11,7 @@ export const getChats = async () => {
     const userChats = await db
       .select()
       .from(chats)
-      .orderBy(desc(chats.updatedAt))
+      .orderBy(desc(chats.createdAt))
       .where(eq(chats.userId, userId));
     return userChats;
   } catch (err) {

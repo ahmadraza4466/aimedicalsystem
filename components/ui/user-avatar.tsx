@@ -7,9 +7,10 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "@nextui-org/dropdown";
-import { logout, getUserDetails } from "@/actions/auth";
+import { getUserDetails } from "@/actions/auth";
 import { useEffect, useState } from "react";
 import { Spinner } from "@nextui-org/spinner";
+import { useRouter } from "next/navigation";
 
 type UserAvatarProps = {
   className?: string;
@@ -24,6 +25,13 @@ type UserDetailsProps = {
 export default function UserAvatar({ className }: UserAvatarProps) {
   const [userDetails, setUserDetails] = useState<UserDetailsProps>();
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const logout = async () => {
+    const res = await fetch("/api/auth/logout").then((res) => res.json());
+    if (res.message === "request successful") router.replace("/auth/login");
+  };
+
   useEffect(() => {
     setLoading(true);
     getUserDetails().then((details) => setUserDetails(details));

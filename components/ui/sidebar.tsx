@@ -1,34 +1,36 @@
 import { createChat, getChats } from "@/actions/chats";
+import { SidebarContext } from "@/contexts/sidebar-context";
 import { cn } from "@/lib/utils";
+import { Skeleton } from "@nextui-org/react";
 import { Spinner } from "@nextui-org/spinner";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BsStars } from "react-icons/bs";
 import { FaRegEdit, FaGooglePlay, FaApple } from "react-icons/fa";
 
-type ChatProps = {
-  id: string;
-  userId: string;
-  name: string | null;
-}[];
-
 export default function Sidebar({ className }: { className?: string }) {
-  const [prevChats, setPrevChats] = useState<ChatProps>();
-  const [loading, setLoading] = useState(false);
+  const {
+    chats,
+    setChats,
+    loading,
+    setLoading,
+    selectedChat,
+    setSelectedChat,
+  } = useContext(SidebarContext)!;
 
   const createNewChat = async () => {
-    await createChat();
-    setPrevChats(await getChats());
+    setSelectedChat(undefined);
   };
 
   useEffect(() => {
-    setLoading(true);
-    getChats().then((chats) => setPrevChats(chats));
-    setLoading(false);
+    setLoading({ ...loading, completeLoading: true });
+    getChats().then((chats) => setChats(chats!));
+    setLoading({ ...loading, completeLoading: false });
   }, []);
+
   return (
     <div
       className={cn(
-        "absolute md:relative z-20 md:border-r md:dark:border-[#2A2929] md:border-[#B5B5B5]",
+        "fixed top-16 md:top-0 md:border-r md:dark:border-[#2A2929] md:border-[#B5B5B5] z-50",
         className
       )}
     >
@@ -45,17 +47,26 @@ export default function Sidebar({ className }: { className?: string }) {
             <FaRegEdit />
           </button>
           <ul className="h-[55vh] md:h-[60vh] overflow-y-scroll scrollbar-thin dark:scrollbar-thumb-primary scrollbar-thumb-[#2D374C]">
-            {loading ? (
+            {loading.rowLoading ? (
+              <Skeleton className="rounded-md mb-2 text-sm md:text-xs truncate border border-[#C2C2C2] dark:border-[#1C1C1C] text-[#676D79] dark:text-[#F6F6F6] p-3 cursor-pointer active:scale-[98%] duration-75" />
+            ) : null}
+            {loading.completeLoading ? (
               <Spinner />
-            ) : prevChats?.length === 0 ? (
+            ) : chats?.length === 0 ? (
               <span className="flex justify-center text-gray-500">
                 No previous chats 😟
               </span>
             ) : (
-              prevChats?.map((chat) => (
+              chats?.map((chat) => (
                 <li
+                  onClick={() => setSelectedChat(chat)}
                   key={chat.id}
-                  className="text-sm md:text-xs truncate border border-[#C2C2C2] dark:border-[#1C1C1C] text-[#676D79] dark:text-[#F6F6F6] p-2 rounded-md mb-2 cursor-pointer active:scale-[98%] duration-75"
+                  className={cn(
+                    "text-sm md:text-xs truncate border border-[#C2C2C2] dark:border-[#1C1C1C] text-[#676D79] dark:text-[#F6F6F6] p-2 rounded-md mb-2 cursor-pointer active:scale-[98%] duration-75",
+                    selectedChat?.id === chat.id
+                      ? "bg-[#C2C2C2] dark:bg-[#1C1C1C]"
+                      : null
+                  )}
                 >
                   {chat.name}
                 </li>

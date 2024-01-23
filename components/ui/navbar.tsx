@@ -19,8 +19,9 @@ export default function Navbar() {
   if (path.includes("/auth") || path !== "/chats") {
     return null;
   }
+
   return (
-    <nav className="w-full md:fixed md:w-[80%] md:right-0">
+    <nav className="w-full fixed md:w-[80%] md:right-0 bg-[#FFFFFF] dark:bg-[#191919] z-50">
       <div className="flex justify-between items-center px-5 h-16">
         <BiMenuAltLeft
           className="text-2xl md:hidden"

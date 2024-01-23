@@ -1,0 +1,1 @@
+ALTER TABLE `chat_messages` ADD `user_type` varchar(9) NOT NULL;

@@ -1,0 +1,1 @@
+ALTER TABLE `chat_messages` MODIFY COLUMN `id` serial AUTO_INCREMENT NOT NULL;

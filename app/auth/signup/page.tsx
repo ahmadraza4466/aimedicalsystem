@@ -27,14 +27,17 @@ export default function SignUp() {
     e.preventDefault();
     setLoading(true);
     setError("");
-    const res = await signup(formData);
-    if (res === "Verification email sent") {
+    const res = await fetch("/api/auth/signup", {
+      method: "POST",
+      body: JSON.stringify(formData),
+    }).then((res) => res.json());
+    if (res.message === "verification email sent") {
       setError("");
       setEmailSent(true);
       setLoading(false);
     } else {
       setLoading(false);
-      setError(res);
+      setError(res.message);
     }
   };
 

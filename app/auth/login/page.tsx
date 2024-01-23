@@ -27,17 +27,20 @@ export default function LogIn() {
     e.preventDefault();
     setLoading(true);
     setError("");
-    const res = await login(formData);
-    if (res === "Email not verified") {
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      body: JSON.stringify(formData),
+    }).then((res) => res.json());
+    if (res.message === "email not verified") {
       setEmailVerified(false);
       setLoading(false);
-    } else if (res === "Login successful") {
+    } else if (res.message === "login successful") {
       setLoading(false);
       setLoginSuccess(true);
       router.replace("/chats");
     } else {
       setLoading(false);
-      setError(res);
+      setError(res.message);
     }
   };
 
