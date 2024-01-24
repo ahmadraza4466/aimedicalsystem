@@ -37,6 +37,39 @@ export default function Chats() {
   const [messages, setMessages] = useState<{ content: string }[]>([]);
   const [contentLoading, setContentLoading] = useState(false);
   const messageEndRef = useRef<null | HTMLDivElement>(null);
+  var requiredChat = null;
+
+  const generateChatName = async ({ prompt }: { prompt: string }) => {
+    await fetch("/api/chat/generate-name", {
+      method: "POST",
+      body: JSON.stringify({ prompt }),
+    });
+  };
+
+  const getChats = async () => {
+    const res = await fetch("/api/chat").then((res) => res.json());
+    return res.chats;
+  };
+
+  const askLLM = async ({
+    chatId,
+    prompt,
+  }: {
+    chatId: string;
+    prompt: string;
+  }) => {
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      body: JSON.stringify({ chatId, prompt }),
+    });
+  };
+
+  const getChatMessages = async ({ id }: { id: string }) => {
+    const res = await fetch(`/api/chat/messages?chat-id=${id}`).then((res) =>
+      res.json()
+    );
+    return res.messages;
+  };
 
   useEffect(() => {
     getUserDetails().then((details) => setUserDetails(details));
@@ -127,46 +160,29 @@ export default function Chats() {
                   if (!selectedChat) {
                     setLoading({ rowLoading: true, completeLoading: false });
                     await generateChatName({ prompt: inputPrompt });
-
-                    setChats(await getChats());
-                    console.log(chats);
-                    setLoading({ rowLoading: false, completeLoading: false });
-                    setSelectedChat(chats![0]);
-                    console.log(selectedChat);
+                    await getChats().then((chats) => {
+                      setChats(chats);
+                      console.log(chats[0]);
+                      requiredChat = chats[0];
+                      setSelectedChat(requiredChat);
+                      setLoading({ rowLoading: false, completeLoading: false });
+                    });
                   }
+
                   if (!messages) setMessages([{ content: inputPrompt }]);
-                  else setMessages([...messages, { content: inputPrompt }]);
+                  else setMessages([...messages!, { content: inputPrompt }]);
                   setContentLoading(true);
+
                   await askLLM({
-                    chatId: chats![0].id,
+                    chatId: selectedChat ? selectedChat.id : requiredChat!.id,
                     prompt: inputPrompt,
                   });
-                  await getChatMessages({ id: chats![0].id }).then((res) =>
-                    setMessages(res)
-                  );
+
+                  await getChatMessages({
+                    id: selectedChat ? selectedChat.id : requiredChat!.id,
+                  }).then((res) => setMessages(res));
+
                   setContentLoading(false);
-                  // if (!selectedChat) {
-                  //   setLoading({ rowLoading: true, completeLoading: false });
-                  //   await generateChatName({ prompt: inputPrompt });
-                  //   setChats(await getChats());
-                  //   setSelectedChat((selectedChat) => chats![0]);
-                  //   console.log(selectedChat);
-                  //   setLoading({ rowLoading: false, completeLoading: false });
-                  //   setMessages([{ content: inputPrompt }]);
-                  // } else {
-                  //   setMessages([...messages!, { content: inputPrompt }]);
-                  //   setContentLoading(true);
-                  //   console.log(selectedChat);
-                  //   console.log(`SELECTED CHAT'S ID: ${selectedChat!.id}`);
-                  //   await askLLM({
-                  //     chatId: selectedChat!.id,
-                  //     prompt: inputPrompt,
-                  //   });
-                  //   await getChatMessages({ id: selectedChat!.id }).then(
-                  //     (res) => setMessages(res)
-                  //   );
-                  //   setContentLoading(false);
-                  // }
                 }}
               />
             }

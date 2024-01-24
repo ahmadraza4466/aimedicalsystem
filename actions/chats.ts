@@ -19,11 +19,11 @@ export const getChats = async () => {
   }
 };
 
-export const createChat = async () => {
-  try {
-    const userId = (await getUserDetails()).id;
-    await db.insert(chats).values({ userId });
-  } catch (err) {
-    console.log(err);
-  }
-};
+// export const createChat = async () => {
+//   try {
+//     const userId = (await getUserDetails()).id;
+//     await db.insert(chats).values({ userId });
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };

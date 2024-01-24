@@ -11,7 +11,7 @@ import {
 type ChatProps = {
   id: string;
   userId: string;
-  name: string | null;
+  name: string;
 };
 
 interface SidebarContextProps {
@@ -47,7 +47,7 @@ export default function SidebarContextProvider({
   const [selectedChat, setSelectedChat] = useState<ChatProps>();
   const [loading, setLoading] = useState({
     rowLoading: false,
-    completeLoading: false,
+    completeLoading: true,
   });
   return (
     <SidebarContext.Provider

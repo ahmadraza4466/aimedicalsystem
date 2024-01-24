@@ -27,6 +27,11 @@ export default function UserAvatar({ className }: UserAvatarProps) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
+  const getUserDetails = async () => {
+    const res = await fetch("/api/auth/current-user").then((res) => res.json());
+    return res.user;
+  };
+
   const logout = async () => {
     const res = await fetch("/api/auth/logout").then((res) => res.json());
     if (res.message === "request successful") router.replace("/auth/login");
