@@ -7,7 +7,6 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "@nextui-org/dropdown";
-import { getUserDetails } from "@/actions/auth";
 import { useEffect, useState } from "react";
 import { Spinner } from "@nextui-org/spinner";
 import { useRouter } from "next/navigation";

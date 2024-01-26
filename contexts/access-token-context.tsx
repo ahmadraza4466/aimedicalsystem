@@ -1,6 +1,5 @@
 "use client";
 
-import { refreshAccessToken } from "@/actions/jwt";
 import { ReactNode, createContext, useEffect, useState } from "react";
 
 interface AccessTokenContextProps {}
@@ -14,6 +13,13 @@ export default function AccessTokenContextProvider({
 }: {
   children: ReactNode;
 }) {
+  const refreshAccessToken = async () => {
+    const res = await fetch("/api/auth/refresh-token").then((res) =>
+      res.json()
+    );
+    return res.token;
+  };
+
   useEffect(() => {
     const tokenExpirationTime = 600000;
     const refreshInterval = setInterval(

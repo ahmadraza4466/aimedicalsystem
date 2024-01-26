@@ -1,7 +1,5 @@
 "use client";
 
-import { logout } from "@/actions/auth";
-import { verifyToken } from "@/actions/jwt";
 import Logo from "@/components/ui/logo";
 import Popup from "@/components/ui/popup";
 import { cn } from "@/lib/utils";
@@ -27,8 +25,21 @@ export default function Verification() {
     VerificationStatus.Pending
   );
 
+  const logout = async () => {
+    const res = await fetch("/api/auth/logout").then((res) => res.json());
+    if (res.message === "request successful") router.replace("/auth/login");
+  };
+
+  const verifyToken = async ({ token }: { token: string }) => {
+    const res = await fetch("/api/auth/verify-token", {
+      method: "POST",
+      body: JSON.stringify(token),
+    }).then((res) => res.json());
+    return res.message;
+  };
+
   useEffect(() => {
-    verifyToken(token).then((res) => {
+    verifyToken({ token }).then((res) => {
       if (res === "verification successful")
         setVerification(VerificationStatus.Success);
       else setVerification(VerificationStatus.Fail);

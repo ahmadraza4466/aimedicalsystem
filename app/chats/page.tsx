@@ -1,9 +1,6 @@
 "use client";
 
-import { getUserDetails } from "@/actions/auth";
-import { getChats } from "@/actions/chats";
-import { askLLM, generateChatName, getChatMessages } from "@/actions/llm";
-import DownloadButton from "@/components/ui/download-btn";
+import DownloadPDF from "@/components/ui/download-btn";
 import Logo from "@/components/ui/logo";
 import Sidebar from "@/components/ui/sidebar";
 import AccessTokenContextProvider, {
@@ -24,14 +21,8 @@ type UserDetailsProps = {
 
 export default function Chats() {
   useContext(AccessTokenContext);
-  const {
-    sidebar,
-    chats,
-    setChats,
-    setLoading,
-    selectedChat,
-    setSelectedChat,
-  } = useContext(SidebarContext)!;
+  const { sidebar, setChats, setLoading, selectedChat, setSelectedChat } =
+    useContext(SidebarContext)!;
   const [inputPrompt, setInputPrompt] = useState("");
   const [userDetails, setUserDetails] = useState<UserDetailsProps>();
   const [messages, setMessages] = useState<{ content: string }[]>([]);
@@ -71,6 +62,11 @@ export default function Chats() {
     return res.messages;
   };
 
+  const getUserDetails = async () => {
+    const res = await fetch("/api/auth/current-user").then((res) => res.json());
+    return res.user;
+  };
+
   useEffect(() => {
     getUserDetails().then((details) => setUserDetails(details));
   }, []);
@@ -88,8 +84,9 @@ export default function Chats() {
   return (
     <AccessTokenContextProvider>
       <main className="md:flex md:items-center md:justify-between">
-        <DownloadButton />
-
+        {selectedChat || requiredChat ? (
+          <DownloadPDF messages={messages} />
+        ) : null}
         <div>
           <Sidebar
             className={`duration-250 ${
@@ -126,7 +123,9 @@ export default function Chats() {
                       <h4>AiBot</h4>
                     </div>
                   )}
-                  <p className="text-sm ml-11">{message.content}</p>
+                  <p className="text-sm ml-11 whitespace-pre-line">
+                    {message.content}
+                  </p>
                 </li>
               ))}
               {contentLoading ? (
@@ -162,7 +161,6 @@ export default function Chats() {
                     await generateChatName({ prompt: inputPrompt });
                     await getChats().then((chats) => {
                       setChats(chats);
-                      console.log(chats[0]);
                       requiredChat = chats[0];
                       setSelectedChat(requiredChat);
                       setLoading({ rowLoading: false, completeLoading: false });

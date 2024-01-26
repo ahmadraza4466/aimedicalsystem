@@ -29,7 +29,7 @@ export default function Navbar() {
         />
         <h2 className={`${righteous.className} text-2xl`}>AiBot</h2>
         <div className="flex items-center">
-          <LangSwitcher className="mr-2" />
+          {/* <LangSwitcher className="mr-2" /> */}
           <ThemeSwitcher />
           <UserAvatar className="ml-3 cursor-pointer" />
         </div>

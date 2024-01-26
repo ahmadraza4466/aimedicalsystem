@@ -1,6 +1,5 @@
 "use client";
 
-import { login } from "@/actions/auth";
 import Error from "@/components/ui/error";
 import Input from "@/components/ui/input";
 import Logo from "@/components/ui/logo";
