@@ -47,9 +47,13 @@ export async function POST(req: NextRequest) {
   try {
     const { chatId, prompt } = await req.json();
 
-    const res = await chatChain.invoke({
-      input: prompt,
-    });
+    const aiRes = await fetch("http://localhost:5000/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ prompt }),
+    }).then(async (res) => await res.json());
 
     await db
       .insert(chatMessages)
@@ -57,13 +61,13 @@ export async function POST(req: NextRequest) {
 
     await db.insert(chatMessages).values({
       chatId,
-      content: res.content.toString(),
+      content: aiRes.message,
       userType: "assistant",
     });
 
     return Response.json({
       message: "request successful",
-      content: res.content,
+      content: aiRes.message,
     });
   } catch (error) {
     return Response.json({

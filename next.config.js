@@ -1,5 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  webpack5: true,
+  webpack: (config) => {
+    config.resolve.fallback = { chromadb: false };
+    return config;
+  },
   async redirects() {
     return [
       {
@@ -12,3 +17,5 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+
+module.exports = {};

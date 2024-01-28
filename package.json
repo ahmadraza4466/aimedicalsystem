@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^8.3.1",
+    "@langchain/community": "^0.0.21",
     "@langchain/openai": "^0.0.12",
     "@nextui-org/avatar": "^2.0.24",
     "@nextui-org/button": "^2.0.26",
@@ -23,6 +24,7 @@
     "@pdf-lib/fontkit": "^1.1.1",
     "@planetscale/database": "^1.13.0",
     "@sendgrid/mail": "^8.1.0",
+    "chromadb": "^1.8.1",
     "crypto-js": "^4.2.0",
     "drizzle-orm": "^0.29.2",
     "file-saver": "^2.0.5",
