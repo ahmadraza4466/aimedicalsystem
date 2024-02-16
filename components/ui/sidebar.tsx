@@ -72,7 +72,7 @@ export default function Sidebar({ className }: { className?: string }) {
                   onClick={() => setSelectedChat(chat)}
                   key={chat.id}
                   className={cn(
-                    "relative flex justify-between items-center text-sm md:text-xs truncate border border-[#C2C2C2] dark:border-[#1C1C1C] text-[#676D79] dark:text-[#F6F6F6] p-2 rounded-md mb-2 cursor-pointer active:scale-[98%] duration-75",
+                    "relative flex justify-between items-center text-sm md:text-xs truncate border border-[#C2C2C2] dark:border-[#1C1C1C] p-2 rounded-md mb-2 cursor-pointer active:scale-[98%] duration-75",
                     selectedChat?.id === chat.id
                       ? "bg-[#C2C2C2] dark:bg-[#1C1C1C]"
                       : null
